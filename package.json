@@ -1,0 +1,66 @@
+{
+  "name": "AsyncHubotExample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@github.com/manaten/AsyncHubotExample.git",
+  "author": "manaten <manaten@manaten.net> (http://manaten.net)",
+  "license": "MIT",
+  "scripts": {
+    "start": "hubot -a slack",
+    "lint:staged": "lint-staged"
+  },
+  "dependencies": {
+    "coffee-script": "^1.12.4",
+    "github": "^9.2.0",
+    "hubot": "^2.19.0",
+    "hubot-slack": "^4.3.3"
+  },
+  "engines": {
+    "node": "7.6.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 8
+    },
+    "rules": {
+      "indent": [
+        2,
+        2
+      ],
+      "quotes": [
+        2,
+        "single"
+      ],
+      "linebreak-style": [
+        2,
+        "unix"
+      ],
+      "semi": [
+        2,
+        "always"
+      ]
+    },
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": "eslint:recommended"
+  },
+  "pre-commit": "lint:staged",
+  "lint-staged": {
+    "*.{cmd,html,json,md,sh,txt,xml,yml}": [
+      "editorconfig-tools fix",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "editorconfig-tools": "^0.1.1",
+    "eslint": "^3.18.0",
+    "lint-staged": "^3.4.0",
+    "pre-commit": "^1.2.2"
+  }
+}
