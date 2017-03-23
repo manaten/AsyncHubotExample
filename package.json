@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "coffee-script": "^1.12.4",
-    "es6-promisify": "^5.0.0",
     "github": "^9.2.0",
     "hubot": "^2.19.0",
     "hubot-slack": "^4.3.3"

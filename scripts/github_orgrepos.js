@@ -11,6 +11,7 @@ github.authenticate({
 
 module.exports = robot => {
   robot.respond(/github:repos\s+(.+)/, async res => {
+    robot.logger.info(`Start \`${res.match[0]}\``);
     try {
       const username = res.match[1];
       const repos = (await github.repos.getForUser({username})).data;
@@ -21,11 +22,19 @@ module.exports = robot => {
           repo : repo.name,
           state: 'open'
         })).data;
-        res.send(pulls.map(pull => `${username}/${repo.name} <${pull.html_url}|${pull.title}>`).join('\n'));
+
+        if (pulls.length > 0) {
+          const text = pulls.map(pull => `:octocat: *${username}/${repo.name}* <${pull.html_url}|${pull.title}>`).join('\n');
+          await robot.adapter.client.web.chat.postMessage(res.envelope.room, text, {
+            as_user     : true,
+            unfurl_links: false
+          });
+        }
       }
     } catch(e) {
       robot.logger.error(e);
       res.send(`取得に失敗しました: ${e.message}`);
     }
+    robot.logger.info(`Finish \`${res.match[0]}\``);
   });
 };
